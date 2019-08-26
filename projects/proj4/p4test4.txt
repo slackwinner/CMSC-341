@@ -1,0 +1,109 @@
+
+
+Dump of Population MedianHeap
+
+... MedianHeap::dump() ...
+
+------------Max Heap------------
+size = 5, capacity = 17
+Heap[1] = (Butte                  AK       61.542  -149.033      3246        28)
+Heap[2] = (Bear_Creek             AK       60.164  -149.395      1956        33)
+Heap[3] = (Anchor_Point           AK       59.777  -151.831      1930        39)
+Heap[4] = (Akutan                 AK       54.136  -165.773      1027        51)
+Heap[5] = (Cohoe                  AK       60.369  -151.306      1364        17)
+
+------------Min Heap------------
+size = 5, capacity = 17
+Heap[1] = (Big_Lake               AK       61.521  -149.954      3350        44)
+Heap[2] = (Barrow                 AK       71.291  -156.789      4212         3)
+Heap[3] = (Badger                 AK       64.800  -147.533     19482       144)
+Heap[4] = (Anchorage              AK       61.218  -149.900    291826        31)
+Heap[5] = (Bethel                 AK       60.792  -161.756      6080         1)
+--------------------------------
+
+min    = Akutan                 AK       54.136  -165.773      1027        51
+median = Butte                  AK       61.542  -149.033      3246        28
+max    = Anchorage              AK       61.218  -149.900    291826        31
+
+
+Dump of Elevation MedianHeap
+
+... MedianHeap::dump() ...
+
+------------Max Heap------------
+size = 5, capacity = 17
+Heap[1] = (Anchorage              AK       61.218  -149.900    291826        31)
+Heap[2] = (Butte                  AK       61.542  -149.033      3246        28)
+Heap[3] = (Cohoe                  AK       60.369  -151.306      1364        17)
+Heap[4] = (Bethel                 AK       60.792  -161.756      6080         1)
+Heap[5] = (Barrow                 AK       71.291  -156.789      4212         3)
+
+------------Min Heap------------
+size = 5, capacity = 17
+Heap[1] = (Bear_Creek             AK       60.164  -149.395      1956        33)
+Heap[2] = (Anchor_Point           AK       59.777  -151.831      1930        39)
+Heap[3] = (Akutan                 AK       54.136  -165.773      1027        51)
+Heap[4] = (Badger                 AK       64.800  -147.533     19482       144)
+Heap[5] = (Big_Lake               AK       61.521  -149.954      3350        44)
+--------------------------------
+
+min    = Bethel                 AK       60.792  -161.756      6080         1
+median = Anchorage              AK       61.218  -149.900    291826        31
+max    = Badger                 AK       64.800  -147.533     19482       144
+
+
+Delete some cities ...
+Found and deleted:
+Anchorage              AK       61.218  -149.900    291826        31
+Found and deleted:
+Bear_Creek             AK       60.164  -149.395      1956        33
+
+
+Dump of Population MedianHeap (after deleting Anchorage, AK)
+
+... MedianHeap::dump() ...
+
+------------Max Heap------------
+size = 5, capacity = 17
+Heap[1] = (Butte                  AK       61.542  -149.033      3246        28)
+Heap[2] = (Bear_Creek             AK       60.164  -149.395      1956        33)
+Heap[3] = (Anchor_Point           AK       59.777  -151.831      1930        39)
+Heap[4] = (Akutan                 AK       54.136  -165.773      1027        51)
+Heap[5] = (Cohoe                  AK       60.369  -151.306      1364        17)
+
+------------Min Heap------------
+size = 4, capacity = 17
+Heap[1] = (Big_Lake               AK       61.521  -149.954      3350        44)
+Heap[2] = (Barrow                 AK       71.291  -156.789      4212         3)
+Heap[3] = (Badger                 AK       64.800  -147.533     19482       144)
+Heap[4] = (Bethel                 AK       60.792  -161.756      6080         1)
+--------------------------------
+
+min    = Akutan                 AK       54.136  -165.773      1027        51
+median = Butte                  AK       61.542  -149.033      3246        28
+max    = Badger                 AK       64.800  -147.533     19482       144
+
+
+Dump of Elevation MedianHeap (after deleting Bear_Creek, AK)
+
+... MedianHeap::dump() ...
+
+------------Max Heap------------
+size = 5, capacity = 17
+Heap[1] = (Anchorage              AK       61.218  -149.900    291826        31)
+Heap[2] = (Butte                  AK       61.542  -149.033      3246        28)
+Heap[3] = (Cohoe                  AK       60.369  -151.306      1364        17)
+Heap[4] = (Bethel                 AK       60.792  -161.756      6080         1)
+Heap[5] = (Barrow                 AK       71.291  -156.789      4212         3)
+
+------------Min Heap------------
+size = 4, capacity = 17
+Heap[1] = (Anchor_Point           AK       59.777  -151.831      1930        39)
+Heap[2] = (Big_Lake               AK       61.521  -149.954      3350        44)
+Heap[3] = (Akutan                 AK       54.136  -165.773      1027        51)
+Heap[4] = (Badger                 AK       64.800  -147.533     19482       144)
+--------------------------------
+
+min    = Bethel                 AK       60.792  -161.756      6080         1
+median = Anchorage              AK       61.218  -149.900    291826        31
+max    = Badger                 AK       64.800  -147.533     19482       144

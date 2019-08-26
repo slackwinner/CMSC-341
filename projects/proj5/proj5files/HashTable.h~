@@ -1,0 +1,93 @@
+//
+//  HashTable.h
+//  CMSC 341 Project 5: Incremental Hashing
+//
+//  Created by Dane Magbuhos on 11/27/18.
+//  Copyright © 2018 Dane Magbuhos. All rights reserved.
+//
+
+#ifndef HashTable_h
+#define HashTable_h
+
+using namespace std;
+
+class HashTableObj{
+    
+  friend class HashTable;
+    
+ public:
+  // Constructor
+  HashTableObj(int n = 101);
+    
+  // Destructor
+  ~HashTableObj();
+    
+ private:
+    
+  int m_maxSize;
+  int m_minSize;
+  int m_requestedSize;
+  int m_TSize;
+  int m_currentSize;
+    
+  // Hash Table Object
+  char **m_hashT;
+    
+  // Index Holder
+  int *m_idxHolder;
+    
+};
+
+class HashTable{
+    
+  friend class HashTableObj;
+    
+ public:
+    
+  // Deleted Item
+  static char * const DELETED;
+    
+  // Constructor
+  HashTable(int n = 101);
+
+  // Destructor
+  ~HashTable();
+
+  // Copy Constructor
+  HashTable(HashTable& other);
+
+  // Overloaded Assignment Operator
+  const HashTable& operator= (HashTable &rhs);
+    
+  // Hashing Algorithm
+  unsigned int hashCode(const char *str);
+    
+  // Insert Function
+  void insert(const char *str);
+
+  // Find Function
+  bool find(const char *str);
+
+  // Remove Function
+  char * remove(const char *str);
+    
+  // Grading Functions
+  bool isRehashing();
+  int tableSize(int table=0);
+  int size(int table=0);
+  const char * at(int index, int table=0);
+    
+  // Dump Function
+  void dump();
+
+ private:
+    
+  int m_count;
+  int m_hashArrayIdx;
+  int m_hashArraySize;
+    
+  HashTableObj *m_T[2];
+    
+};
+
+#endif /* HashTable_h */

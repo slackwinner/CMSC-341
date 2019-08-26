@@ -1,0 +1,93 @@
+linux1[101]% g++ City.cpp p4test5.cpp -o t5.out
+
+
+linux1[102]% ./t5.out < CityData10.txt
+Read in some cities: ...
+
+Checking Population MedianHeap...
+   min    = Cohoe                  AK       60.369  -151.306      1364        17
+   median = Butte                  AK       61.542  -149.033      3246        28
+   max    = Anchorage              AK       61.218  -149.900    291826        31
+=====================================================
+sanityCheck called ...
+max and min heap sizes are consistent MedianHeap::size()
+max and min heap sizes are within 1 of each other
+Sanity Check maxHeap...
+Sanity Check minHeap...
+Passed sanityCheck().
+=====================================================
+
+Checking Elevation MedianHeap...
+   min    = Bethel                 AK       60.792  -161.756      6080         1
+   median = Butte                  AK       61.542  -149.033      3246        28
+   max    = Badger                 AK       64.800  -147.533     19482       144
+=====================================================
+sanityCheck called ...
+max and min heap sizes are consistent MedianHeap::size()
+max and min heap sizes are within 1 of each other
+Sanity Check maxHeap...
+Sanity Check minHeap...
+Passed sanityCheck().
+=====================================================
+
+
+linux1[103]% ./t5.out < CityDataMD.txt
+Read in some cities: ...
+
+Checking Population MedianHeap...
+   min    = Upper_Marlboro         MD       38.816   -76.750       631         7
+   median = Forest_Glen            MD       39.015   -77.055      6582        96
+   max    = Baltimore              MD       39.290   -76.612    620961        10
+=====================================================
+sanityCheck called ...
+max and min heap sizes are consistent MedianHeap::size()
+max and min heap sizes are within 1 of each other
+Sanity Check maxHeap...
+Sanity Check minHeap...
+Passed sanityCheck().
+=====================================================
+
+Checking Elevation MedianHeap...
+   min    = Solomons               MD       38.318   -76.454      2368         0
+   median = Bennsville             MD       38.609   -77.012     11923        60
+   max    = Mountain_Lake_Park     MD       39.398   -79.382      2092       748
+=====================================================
+sanityCheck called ...
+max and min heap sizes are consistent MedianHeap::size()
+max and min heap sizes are within 1 of each other
+Sanity Check maxHeap...
+Sanity Check minHeap...
+Passed sanityCheck().
+=====================================================
+
+
+
+River[104]% ./t5.out < CityDataUS.txt
+Read in some cities: ...
+
+Checking Population MedianHeap...
+   min    = Dinwiddie              VA       37.078   -77.587         0        78
+   median = Hobart                 OK       35.029   -99.093      3756       473
+   max    = New_York_City          NY       40.714   -74.006   8175133        10
+=====================================================
+sanityCheck called ...
+max and min heap sizes are consistent MedianHeap::size()
+max and min heap sizes are within 1 of each other
+Sanity Check maxHeap...
+Sanity Check minHeap...
+Passed sanityCheck().
+=====================================================
+
+Checking Elevation MedianHeap...
+   min    = Mecca                  CA       33.572  -116.077      8577       -57
+   median = Tonawanda              NY       42.985   -78.878     58144       187
+   max    = Leadville              CO       39.251  -106.293      2602      3097
+=====================================================
+sanityCheck called ...
+max and min heap sizes are consistent MedianHeap::size()
+max and min heap sizes are within 1 of each other
+Sanity Check maxHeap...
+Sanity Check minHeap...
+Passed sanityCheck().
+=====================================================
+

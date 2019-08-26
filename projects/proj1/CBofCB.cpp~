@@ -1,0 +1,273 @@
+/** CBofCB.cpp
+ * Project: CMSC 341 Project 1, Fall 2018
+ * Author: Dane Magbuhos
+ * Date: 9/20/18
+ * E-mail: mag4@umbc.edu     
+ *
+ *
+ * Description:
+ * This file constructs a circular buffer
+ * and adds/removes inner buffers from buffer; 
+ */
+
+#include <iostream>
+#include <stdexcept>
+#include "CBofCB.h"
+
+using namespace std;
+
+
+using namespace std;
+
+CBofCB::CBofCB(){
+
+  m_oldest = 0;
+  m_newest = 0;
+  m_obSize = 1;
+  m_buffers[m_oldest] = new InnerCB();
+
+}
+
+// copy constructor
+CBofCB::CBofCB(const CBofCB& other){
+
+  m_oldest = other.m_oldest;
+  m_newest = other.m_newest;
+  m_obSize = other.m_obSize;
+
+  int shift = 1;
+  int index = m_oldest;
+
+  // Copies m_buffers contents
+  for(int j = 0; j < m_obSize; j++){
+    m_buffers[index] = new InnerCB(*other.m_buffers[index]);
+    index = (index + shift) % m_obCapacity;
+
+  }
+}
+// destructor
+CBofCB::~CBofCB(){
+
+  int shift = 1;
+  int index = m_oldest;
+
+  // Deallocates each object within array
+  for(int i = 0; i < m_obSize; i++){
+    delete m_buffers[index];
+    m_buffers[index] = NULL;
+    index = (index + shift) % m_obCapacity;
+  }
+
+  m_oldest = NULL;
+  m_newest = NULL;
+  m_obSize = NULL;
+
+}
+
+// add item to this data structure
+void CBofCB::enqueue(int data){
+
+  bool bufferFull = true;
+  int shift = 1;
+  int multiplier = 2;
+  int previousCap = 0;
+
+  // Checks to see if outer buffer and inner buffer is full
+  if(isFull() == bufferFull){
+    throw overflow_error("CBofCB is full");
+  }
+
+  // Checks to see if inner buffer is full
+  else if(m_buffers[m_newest]->isFull() == bufferFull){
+
+    // Grabs current capacity of inner buffer
+    previousCap = m_buffers[m_newest]->capacity();
+
+    // Shifts the new pointer to next index
+    m_newest = (m_newest + shift) % m_obCapacity;
+
+    // Creates new buffer array (Doubles capacity)
+    m_buffers[m_newest] = new InnerCB(previousCap * multiplier);
+
+    // Increments array size
+    m_obSize++;
+
+  }
+  // Adds the element to the queue
+  m_buffers[m_newest]->enqueue(data);
+}
+
+// remove item from this data structure
+int CBofCB::dequeue(){
+
+  bool empty = true;
+  int emptyInnerCB = 0;
+  int shift = 1;
+  int value;
+
+  // Checks to see if outer buffer and inner buffer is empty
+  if(isEmpty() == empty){
+
+    throw underflow_error("CBofCB is empty");
+  }
+
+  // Extracts value being removed before deallocation
+  value = m_buffers[m_oldest]->dequeue();
+
+  // Gets rid of empty inner buffer
+  if((m_buffers[m_oldest]->size() == emptyInnerCB) && (m_obSize > shift)){
+
+    // Deallocates outer buffers index
+    delete m_buffers[m_oldest];
+    m_buffers[m_oldest] = NULL;
+
+    // Decrements the outer buffer's size
+    m_obSize--;
+
+    // Shifts old pointer to next preceding index
+    m_oldest = (m_oldest + shift) % m_obCapacity;
+
+  }
+
+  return value;
+}
+
+
+// returns true if cannot add more items
+bool CBofCB::isFull(){
+
+  bool result = false;
+
+
+  // Checks to see if outer buffer is full
+  if(m_obSize == m_obCapacity){
+
+    // Checks to see if inner buffer is full
+    result = m_buffers[m_newest]->isFull();
+
+  }
+
+  // Only returns true if both outer and inner buffer is full
+  return result;
+
+}
+
+// returns true if no items are stored in data structure
+bool CBofCB::isEmpty(){
+
+  bool result = false;
+  int lastBuffer = 1;
+
+  // Checks to see if last buffer has one remaining inner buffer
+  if(m_obSize == lastBuffer){
+
+    // Checks to see if last inner buffer is empty
+    if(m_buffers[m_oldest]->isEmpty()){
+      result = true;
+
+    }
+  }
+
+  return result;
+
+}
+
+// number of items in the data structure as a whole.
+// Note: not the number of InnerCB's
+int CBofCB::size(){
+
+  int numberOfItems = 0;
+  int tempIndex = m_oldest;
+  int shift = 1;
+
+  // Traverses through outer buffer and calculates total number of items present
+  for(int i = 0; i < m_obSize; i++){
+
+    numberOfItems = numberOfItems + m_buffers[tempIndex]->size();
+    tempIndex = (tempIndex + shift) % m_obCapacity;
+
+  }
+  return numberOfItems;
+
+}
+
+// overloaded assignment operator
+const CBofCB& CBofCB::operator=(const CBofCB& rhs){
+
+  int shift = 1;
+
+  // Creates a new deep copy
+  if(this != &rhs){
+
+    // Copies rhs member variables
+    m_oldest = NULL;
+    m_newest = NULL;
+    m_obSize = NULL;
+
+
+    int index = rhs.m_oldest;
+
+    // Deletes objects within m_buffers array
+    for(int i = 0; i < rhs.m_obSize; i++){
+        delete m_buffers[index];
+        m_buffers[index] = NULL;
+        index = (index + shift) % m_obCapacity;
+     }
+
+    int indexOne = rhs.m_oldest;
+
+    // Copies m_buffer array's contents
+    for(int f = 0; f < rhs.m_obSize; f++){
+        m_buffers[indexOne] = new InnerCB(*rhs.m_buffers[indexOne]);
+        indexOne = (index + shift) % m_obCapacity;
+     }
+    
+    /* m_oldest = rhs.m_oldest;
+    m_newest = rhs.m_newest;
+    m_obSize =*/ 
+
+  }
+
+  m_oldest = rhs.m_oldest;
+  m_newest = rhs.m_newest;
+  m_obSize = rhs.m_obsize;
+
+  return *this;
+
+}
+
+// debugging function, prints out contents of data structure
+void CBofCB::dump(){
+
+  int shift = 1;
+  int index = m_oldest;
+
+  cout << "Outer Circular buffer dump (), m_obSize = " << m_obSize << ":" << endl;
+
+  // Traverses through entire outer array
+  for (int q = 0; q < m_obSize; q++){
+
+    // Outputs current index
+    cout << "[" << index << "]";
+
+    // Prints out contents from inner buffer
+    m_buffers[index]->dump();
+
+    // Shifts variable to next preceding index
+    index = (index + shift) % m_obCapacity;
+
+  }
+
+}
+
+
+
+
+
+
+
+  
+
+
+
+

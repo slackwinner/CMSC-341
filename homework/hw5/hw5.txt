@@ -1,0 +1,279 @@
+Name: Dane Magbuhos
+Userid: mag4
+
+CMSC 341 Fall 2018 Homework 5
+
+-------------------------------------------------------------------
+Question #1:
+-------------------------------------------------------------------
+
+How unbalanced can a red-black tree be? That is, how much taller
+can the left subtree be compared to the right subtree? Explain your
+answer.
+
+Due to the constraints of the red-black tree, the height of the tree
+is in between log2(n+1) and 2log2(n+1) (i.e. the height of the red-
+black tree can't grow no longer than twice it's initial height of
+log2(n+1)).
+
+
+
+
+-------------------------------------------------------------------
+Question #2:
+-------------------------------------------------------------------
+
+Using the ascii-art binary tree below, make a red-black tree with
+height 4 (that's true tree height, not black height) using the
+fewest number of nodes. That is, for each node, either replace the
+"X" with a "b" for black, "R" for red or spaces to indicate the
+absence of a node. (We want you to use lower case "b" for black
+because "B" and "R" look too similar.)  Note that there should be
+at least one "b" or "R" at the lowest level.  Please don't use
+tabs: people have different tab stop settings and that would ruin
+the ascii art. 
+
+  
+                                b
+                               / \
+                   ___________/   \___________
+                  /                           \
+                 /                             \
+                b                               R
+               / \                             / \
+           ___/   \___                     ___/   \___
+          /           \                   /           \
+         /             \                 /             \
+        b               b               b               R
+      _/ \_           _/ \_           _/ \_           _/ \_
+     /     \         /     \         /     \         /     \
+                                    b       b       b       b
+   / \     / \     / \     / \     / \     / \     / \     / \
+                                                   b  b    b  b
+
+-------------------------------------------------------------------
+Question #3:
+-------------------------------------------------------------------
+
+In a max heap (largest value at the root), when we call deleteMax,
+the root is replaced by the last item in the heap and "trickles down" to
+the correct position. 
+
+In the binary heap below, the last item happens to be 1. Replace the X's 
+with actual positive values (no duplicates), so you have a legal max 
+heap and after each of the 4 calls to deleteMax, the number 1 trickles
+down to the last position again.
+
+"Draw" the resulting heap after each deleteMax. (You might want to copy
+over your original heap four times instead of entering the numbers
+again.)
+
+
+Original Heap:
+                               300
+                               / \
+                   ___________/   \___________  
+                  /                           \
+                 /                             \
+               250                             150               
+               / \                             / \             
+           ___/   \___                     ___/   \___
+          /           \                   /           \       
+         /             \                 /             \     
+       200             199             149             148   
+      _/ \_           _/ \_           _/ \_           _/ \_
+     /     \         /     \         /     \         /     \
+   140     139     132     133     128     127     126     125
+   / \     / \     / \     / \     / \     / \     / \     / \
+ 100 99  87   85  71 70   61 60   50 49   48 47   46 45   10  1
+
+
+  
+  After first deleteMax:
+                               250
+                               / \
+                   ___________/   \___________  
+                  /                           \
+                 /                             \
+               200                             150               
+               / \                             / \             
+           ___/   \___                     ___/   \___
+          /           \                   /           \       
+         /             \                 /             \     
+       140             199             149             148   
+      _/ \_           _/ \_           _/ \_           _/ \_
+     /     \         /     \         /     \         /     \
+   100     139     132     133     128     127     126     125
+   / \     / \     / \     / \     / \     / \     / \     / \
+ 10  99  87   85  71 70   61 60   50 49   48 47   46 45   1
+
+  
+  After second deleteMax:
+                               200
+                               / \
+                   ___________/   \___________  
+                  /                           \
+                 /                             \
+               199                             150               
+               / \                             / \             
+           ___/   \___                     ___/   \___
+          /           \                   /           \       
+         /             \                 /             \     
+       140             133             149             148   
+      _/ \_           _/ \_           _/ \_           _/ \_
+     /     \         /     \         /     \         /     \
+   100     139     132      61     128     127     126     125
+   / \     / \     / \     / \     / \     / \     / \     / \
+ 10  99  87   85  71 70   45 60   50 49   48 47   46  1
+     
+     
+  
+  After third deleteMax:
+                               199
+                               / \
+                   ___________/   \___________  
+                  /                           \
+                 /                             \
+               140                             150               
+               / \                             / \             
+           ___/   \___                     ___/   \___
+          /           \                   /           \       
+         /             \                 /             \     
+       100             133             149             148   
+      _/ \_           _/ \_           _/ \_           _/ \_
+     /     \         /     \         /     \         /     \
+   99      139     132      61     128     127     126     125
+   / \     / \     / \     / \     / \     / \     / \     / \
+ 10  46  87   85  71 70   45 60   50 49   48 47    1
+     
+  
+
+  After fourth deleteMax:
+                               150
+                               / \
+                   ___________/   \___________  
+                  /                           \
+                 /                             \
+               140                             149               
+               / \                             / \             
+           ___/   \___                     ___/   \___
+          /           \                   /           \       
+         /             \                 /             \     
+       100             133             128             148   
+      _/ \_           _/ \_           _/ \_           _/ \_
+     /     \         /     \         /     \         /     \
+   99      139     132      61      50     127     126     125
+   / \     / \     / \     / \     / \     / \     / \     / \
+ 10  46  87   85  71 70   45 60   47 49   48 47    1
+     
+
+
+
+-------------------------------------------------------------------
+Question #4:
+-------------------------------------------------------------------
+
+A binary heap can support a version of deletion in O(log n) time.
+In this version, you are given a location in the heap to delete. So,
+the delete instruction is given an index into the array and asked to
+delete the item in that location. The item that is removed is replaced
+by the last item in the heap. (We might as well do that since the 
+shape of the heap is completely determined by the number of items).
+
+Of course the replacement item might violate the heap property ---
+i.e., its key may be too small or too large. In this case we may
+need to "bubble up" or "trickle down" to fix the heap.
+
+In may not be obvious that both "bubbling up" and "trickling down" may
+be needed. In the two binary heaps below, enter numbers in the nodes
+for a MAX heap so that in the first case, after the key 30 is deleted,
+the replacement item bubbles up and in the second case, after the key 30
+is deleted, the replacement item trickles down. 
+
+Both heaps have to be MAX heaps (but they, of course, cannot be the same
+heap). Also, show the resulting heap after deletion.
+
+
+
+First max heap: deleting 30 makes the replacement item bubble up:
+  
+                               100
+                               / \
+                   ___________/   \___________  
+                  /                           \
+                 /                             \
+               75                               50               
+               / \                             / \             
+           ___/   \___                     ___/   \___
+          /           \                   /           \       
+         /             \                 /             \     
+        32             30               28              27  
+      _/ \_           _/ \_           _/ \_           _/ \_
+     /     \         /     \         /     \         /     \
+    23      22      21      85      17      16      15      14
+   / \     / \     / \     / \     / \     / \     / \     / \
+  20  19  18  12  11  10   9  8   7   6   5   4   3   2   1   0
+     
+
+
+Result of first heap, after deleting 30:
+
+                               100
+                               / \
+                   ___________/   \___________  
+                  /                           \
+                 /                             \
+               85                               50               
+               / \                             / \             
+           ___/   \___                     ___/   \___
+          /           \                   /           \       
+         /             \                 /             \     
+        75              32              28              27  
+      _/ \_           _/ \_           _/ \_           _/ \_
+     /     \         /     \         /     \         /     \
+    23      22      21      9      17      16      15      14
+   / \     / \     / \     / \     / \     / \     / \     / \
+  20  19  18  12  11  10   0  8   7   6   5   4   3   2   1   
+     
+
+
+  
+Second max heap: deleting 30 makes the replacement item trickle down.
+
+                               100
+                               / \
+                   ___________/   \___________  
+                  /                           \
+                 /                             \
+                75                              50               
+               / \                             / \             
+           ___/   \___                     ___/   \___
+          /           \                   /           \       
+         /             \                 /             \     
+        32              30              29              28   
+      _/ \_           _/ \_           _/ \_           _/ \_
+     /     \         /     \         /     \         /     \
+    27     26       25      24      23      22      21      20
+   / \     / \     / \     / \     / \     / \     / \     / \
+  19  18   17 16  15 14   13 12   11 10   9   8   7   6   5   4
+     
+
+Result of second heap, after deleting 30:
+
+                               100
+                               / \
+                   ___________/   \___________  
+                  /                           \
+                 /                             \
+                75                              50               
+               / \                             / \             
+           ___/   \___                     ___/   \___
+          /           \                   /           \       
+         /             \                 /             \     
+        32              25              29              28   
+      _/ \_           _/ \_           _/ \_           _/ \_
+     /     \         /     \         /     \         /     \
+    27     26       15      24      23      22      21      20
+   / \     / \     / \     / \     / \     / \     / \     / \
+  19  18   17 16  4  14   13  12   11 10  9   8    7  6    5  
+     

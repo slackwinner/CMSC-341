@@ -1,0 +1,36 @@
+
+Check original hash table T...
+Sets sizes are both 27
+Passed set equality test
+
+Check hash tables T, *T2ptr & T3 after copying...
+Sets sizes are both 27
+Passed set equality test
+Sets sizes are both 27
+Passed set equality test
+Sets sizes are both 27
+Passed set equality test
+
+Check hash tables T & T3 after deleting T2ptr...
+Sets sizes are both 27
+Passed set equality test
+Sets sizes are both 27
+Passed set equality test
+
+Check original hash table X...
+Sets sizes are both 27
+Passed set equality test
+
+Check hash tables X, X2 & X3 after assignment...
+Sets sizes are both 27
+Passed set equality test
+Sets sizes are both 27
+Passed set equality test
+Sets sizes are both 27
+Passed set equality test
+
+Check hash tables X & X3 after modifying X2...
+Sets sizes are both 27
+Passed set equality test
+Sets sizes are both 27
+Passed set equality test

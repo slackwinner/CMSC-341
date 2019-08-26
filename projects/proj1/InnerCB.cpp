@@ -1,0 +1,201 @@
+/*
+ * InnerCB.cpp
+ * Project: CMSC 341 Project 1, Fall 2018
+ * Author: Dane Magbuhos
+ * Date: 9/12/18
+ * E-mail: mag4@umbc.edu
+ *
+ * Description:
+ * This file constructs a circular buffer 
+ * and adds/removes integers from buffer.
+ */
+
+#include <iostream>
+#include <stdexcept>
+
+using namespace std;
+
+#include "InnerCB.h"
+
+InnerCB::InnerCB(int n){
+
+  // Constructs the InnerCB attributes
+  m_buffer = new int[n];
+  m_capacity = n;
+  m_size = 0;
+  m_start = 0;
+  m_end = -1;
+
+}
+
+// Copy constructor
+InnerCB::InnerCB(const InnerCB& other){
+
+  // Copies the InnerCB attributes and contents
+  m_capacity = other.m_capacity;
+  m_size = other.m_size;
+  m_start = other.m_start;
+  m_end = other.m_end;
+
+  m_buffer = new int[m_capacity];
+
+  for(int i = 0; i < m_capacity; i++){
+    m_buffer[i] = other.m_buffer[i];
+  }
+
+}
+
+// Destructor
+InnerCB::~InnerCB(){
+
+  // Deallocates buffer array 
+  delete [] m_buffer;
+  m_buffer = NULL;
+
+}
+
+// Add item to circular buffer
+void InnerCB::enqueue(int data){
+
+  int shift = 1;
+  bool overflow = true;
+
+  // Handles the data overflow error 
+  if(isFull() == overflow){
+
+
+    throw overflow_error("Current buffer array is full");
+  }
+
+  // Adds data to buffer and shifts end tracker
+  else{
+    m_end = (m_end + shift) % m_capacity;
+    m_buffer[m_end] = data;
+    m_size++;
+
+  }
+
+}
+
+// Remove item from circular buffer
+int InnerCB::dequeue(){
+
+  int value = -1;        // Default value
+  int shift = 1;         // Index Shifter
+  bool underflow = true; // Default boolean value
+
+  // Handles the data underflow error
+  if(isEmpty() == underflow){
+
+    throw underflow_error("Current buffer array is empty");
+  }
+
+  // Shifts the start tracker to next preceding index
+  else{
+    value = m_buffer[m_start];
+    m_start = (m_start + shift) % m_capacity;
+    m_size--;
+  }
+  return value;
+}
+
+// True if buffer holds max items
+bool InnerCB::isFull(){
+
+  bool result = false;
+
+  if(size() == capacity()){
+
+    result = true;
+
+  }
+
+  return result;
+
+}
+
+// True if buffer holds no items
+bool InnerCB::isEmpty(){
+
+  bool isEmpty = false;
+  int empty = 0;
+
+  // Checks to see if start tracker and end tracker is pointing at same index
+  if(size() == empty)
+    isEmpty = true;
+
+  return isEmpty;
+
+}
+
+// return maximum number of items this buffer can hold
+int InnerCB::capacity(){
+
+  return m_capacity;
+}
+
+// return number of items currently held in the buffer
+int InnerCB::size(){
+
+  return m_size;
+}
+
+// overloaded assignment operator
+const InnerCB& InnerCB::operator=(const InnerCB& rhs){
+
+  delete [] m_buffer;
+  m_buffer = NULL;
+  m_capacity = NULL;
+  m_size = NULL;
+  m_start = NULL;
+  m_end = NULL;
+
+  // Checks to see if object is itself
+  if(this != &rhs){
+
+    m_capacity = rhs.m_capacity;
+    m_size = rhs.m_size;
+    m_start = rhs.m_start;
+    m_end = rhs.m_end;
+
+    delete [] m_buffer;
+    m_buffer = new int[m_capacity];
+
+    //    int index = m_start;
+
+    // Copies buffer array's contents
+    for(int i = 0; i < m_capacity; i++){
+      m_buffer[i] = rhs.m_buffer[i];
+      // index = (index + 1) % m_capacity;
+    }
+
+  }
+
+  return *this;
+}
+
+// debugging function. Prints out contents.
+void InnerCB::dump(){
+
+  int currentIndex = m_start;
+  int indexShift = 1;
+  int count = 0;
+
+  //cout <<"InnerCB dump(): m_capacity = " << capacity() << endl;
+  cout <<"InnerCB dump(): m_size = " << size() << endl;
+
+  // Traverses through buffer array
+  while(count < size()){
+
+    cout <<"[" << currentIndex << "]" << m_buffer[currentIndex % m_capacity] <<", ";
+    currentIndex = (currentIndex + indexShift) % m_capacity;
+    count++;
+  }
+
+  cout << endl;
+
+}
+
+
+
+
